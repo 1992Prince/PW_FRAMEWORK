@@ -1,0 +1,8 @@
+{
+  "validRegistration": [
+    { "id": "TC001", "email": "sarika@example.com", "password": "password123" }
+  ],
+  "invalidEmailFormat": [
+    { "id": "TC020", "email": "not-an-email", "password": "Invalid email format" }
+  ]
+}

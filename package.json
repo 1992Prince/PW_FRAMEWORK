@@ -1,0 +1,25 @@
+{
+  "name": "pw_framework",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "conduit-bvt": "npx playwright test --grep \"@sanity|@smoke|@regression|@bvt\"",
+    "conduit-sanity": "npx playwright test --grep \"@sanity\"",
+    "eventApp-bvt": "npx playwright test --project=eventapp",
+    "command": "run like - npm run conduit-bvt or npm run eventApp-bvt"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@faker-js/faker": "^10.5.0",
+    "@playwright/test": "^1.61.1",
+    "@types/node": "^26.1.0",
+    "allure-playwright": "^3.10.2"
+  },
+  "dependencies": {
+    "papaparse": "^5.5.3"
+  }
+}
