@@ -14,9 +14,9 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.2.2
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4.4.0
         with:
           node-version: lts/*
 
@@ -58,14 +58,14 @@ jobs:
       # -------------------------------
       # ARTIFACTS
       # -------------------------------
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4.6.2
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4.6.2
         if: ${{ !cancelled() }}
         with:
           name: test-results
@@ -77,15 +77,16 @@ jobs:
       # -------------------------------
       - name: Send email report
         if: always()
-        uses: dawidd6/action-send-mail@v3
+        uses: dawidd6/action-send-mail@v4
         with:
           server_address: smtp.gmail.com
           server_port: 465
+          secure: true
           username: princepandey155@gmail.com
           password: ${{ secrets.GMAIL_APP_PASSWORD }}
           subject: 'Playwright Test Report for ${{ github.repository }}: ${{ job.status }}'
           to: princepandey155@gmail.com
-          from: GitHub Actions CI <notifications@example.com>
+          from: GitHub Actions CI <princepandey155@gmail.com>
           html_body: |
             <!DOCTYPE html>
             <html>
