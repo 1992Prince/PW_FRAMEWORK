@@ -22,21 +22,21 @@
  */
 
 import { test as base, expect } from '@playwright/test';
-import { LoginPage }             from '../pages/LoginPage.js';
+import { PageManager }           from '../pages/PageManager.js';
 import { config }                from '../config/config.js';
 
 const test = base.extend({
-
-  // `loginPage` fixture — performs login once before the test body runs
-  loginPage: async ({ page }, use) => {
-    const loginPage = new LoginPage(page);
+  // `pageManager` fixture — provides a PageManager instance and handles login
+  pageManager: async ({ page }, use) => {
+    const pageManager = new PageManager(page);
+    const loginPage = pageManager.getLoginPage();
 
     // Log in using credentials and URL from central config
     // These can be overridden at CI level via environment variables
     await loginPage.login(config.appUrl, config.serviceUser, config.servicePassword);
 
-    // Hand the authenticated loginPage instance to the test
-    await use(loginPage);
+    // Hand the authenticated PageManager instance to the test
+    await use(pageManager);
 
     // write logout code here i.e. clean up
   },

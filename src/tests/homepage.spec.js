@@ -6,35 +6,38 @@
  * Import test and expect from the fixture, NOT from @playwright/test.
  */
 
-import { test, expect } from '../fixtures/auth.fixture.js';
-import { Homepage }     from '../pages/Homepage.js';
+import { test, expect } from "../fixtures/auth.fixture.js";
 
-test.describe('Homepage', () => {
+test("should display homepage heading after login @sanity @bvt @regression", async ({
+  pageManager,
+}) => {
+  const homepage = pageManager.getHomePage();
 
-  test('should display homepage heading after login @sanity @bvt @regression', async ({ loginPage }) => {
-    const homepage = new Homepage(loginPage.page);
+  await homepage.isAt();
+  await homepage.verifyHomepageLoaded();
+});
 
-    await homepage.isAt();
-    await homepage.verifyHomepageLoaded();
-  });
+test("should display Dilli Diwali Mela event on homepage @regression", async ({
+  pageManager,
+}) => {
+  const homepage = pageManager.getHomePage();
 
-  test('should display Dilli Diwali Mela event on homepage @regression', async ({ loginPage }) => {
-    const homepage = new Homepage(loginPage.page);
+  await homepage.isAt();
+  await expect(homepage.dilliWalaMelaEvent).toBeVisible();
+});
 
-    await homepage.isAt();
-    await expect(homepage.dilliWalaMelaEvent).toBeVisible();
-  });
+test("should navigate away after clicking Dilli Diwali Mela event @regression @bvt", async ({
+  pageManager,
+}) => {
+  const homepage = pageManager.getHomePage();
 
-  test('should navigate away after clicking Dilli Diwali Mela event @regression @bvt', async ({ loginPage }) => {
-    const homepage = new Homepage(loginPage.page);
+  await homepage.isAt();
+  await homepage.clickDilliWalaMelaEvent();
 
-    await homepage.isAt();
-    await homepage.clickDilliWalaMelaEvent();
-
-    // After clicking the event card, URL should change away from the homepage
-    await expect(loginPage.page).not.toHaveURL('https://eventhub.rahulshettyacademy.com/');
-  });
-
+  // After clicking the event card, URL should change away from the homepage
+  await expect(pageManager.page).not.toHaveURL(
+    "https://eventhub.rahulshettyacademy.com/",
+  );
 });
 
 /**

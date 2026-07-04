@@ -16,7 +16,7 @@
 import { BasePage }      from './BasePage.js';
 import { consoleLogger } from '../utils/loggerUtil.js';
 
-export class Homepage extends BasePage {
+export class HomePage extends BasePage {
 
   // ── Locators ──────────────────────────────────────────────────────────────
   // Defined once in the constructor — update selectors here if the app changes.

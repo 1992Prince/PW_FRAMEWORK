@@ -13,14 +13,24 @@ import { consoleLogger } from '../utils/loggerUtil.js';
 import testData from "../testdata/registration.json" assert { type: "json" };
 
 test("should land on homepage with correct URL and title after login", async ({
-  loginPage,
+  pageManager,
 }) => {
   // Login is already done by the fixture — just validate the post-login state
 
-  await expect(loginPage.page).toHaveURL(
+  test.step("Login Successful - ", async () => {
+      consoleLogger.info("Login Successful - ", testData.validRegistration[0].email);
+    });
+
+  test.step("Checkout assertion - ", async () => {
+      await expect(pageManager.page).toHaveURL(
     "https://eventhub.rahulshettyacademy.com/",
   );
-  await expect(loginPage.page).toHaveTitle("EventHub — Discover & Book Events");
+    });
+
+  await expect(pageManager.page).toHaveURL(
+    "https://eventhub.rahulshettyacademy.com/",
+  );
+  await expect(pageManager.page).toHaveTitle("EventHub — Discover & Book Events");
 });
 
 
@@ -36,14 +46,16 @@ test("should land on homepage with correct URL and title after login", async ({
  */
 
 test("DDT tests", async ({
-  loginPage,
+  pageManager,
 }) => {
   // Login is already done by the fixture — just validate the post-login state
 
-  await expect(loginPage.page).toHaveURL(
+  
+
+  await expect(pageManager.page).toHaveURL(
     "https://eventhub.rahulshettyacademy.com/",
   );
-  await expect(loginPage.page).toHaveTitle("EventHub — Discover & Book Events");
+  await expect(pageManager.page).toHaveTitle("EventHub — Discover & Book Events");
 
   consoleLogger.info("Running DDT tests for valid registration data - ", testData.validRegistration[0].email);
   consoleLogger.info("Running DDT tests for valid registration data - ", testData.validRegistration[0].password);
