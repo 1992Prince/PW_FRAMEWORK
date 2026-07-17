@@ -14,10 +14,14 @@ on:
         description: 'Environment to test against'
         required: false
         default: 'staging'
+      url:
+        description: 'url where tests will run'
+        required: false
+        default: 'https://www.google.com'
 jobs:
   test:
     timeout-minutes: 60
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # runner
     container:
       image: mcr.microsoft.com/playwright:v1.61.0-noble
       options: --user 1001
